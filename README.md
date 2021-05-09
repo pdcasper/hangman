@@ -1,6 +1,6 @@
-# Getting Started with Create React App
-
+# The Hangman game
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a very basic and simple React App and it is used to learn and test some React concepts.
 
 ## Available Scripts
 
