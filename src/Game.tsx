@@ -1,4 +1,5 @@
 import React from "react";
+import { Picture}  from './components/HangmanPicture';
 
 interface GameProps  {
 }
@@ -85,6 +86,7 @@ export default class Game extends React.Component<GameProps, GameState> {
 
     return(
       <>
+        <Picture errorCont={this.state.errorCount}></Picture>
         <div>
           PALABRA: 
          {this.getWordLetters().map((value, index) => {
