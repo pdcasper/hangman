@@ -1,7 +1,9 @@
 import React from "react";
 import { Picture}  from './components/HangmanPicture';
+import {WordService} from './services/WordService';
 
 interface GameProps  {
+  wordService: WordService;
 }
 
 interface GameState  {
@@ -20,7 +22,7 @@ export default class Game extends React.Component<GameProps, GameState> {
     super(props);
     this.state = 
       {
-        guessWord: 'SUPERCALIFRAGILISTICOESPIALIDOSO', 
+        guessWord: this.props.wordService.getWord(), 
         maxErrors: 10, 
         errorCount: 0, 
         guessedChars: 0, 
@@ -36,31 +38,23 @@ export default class Game extends React.Component<GameProps, GameState> {
     }
 
     let ocurrences = this.state.guessWord.split(this.state.currentLetter).length - 1;
-    let newUsedLetters = Object.assign([], this.state.usedLetters);
-    newUsedLetters.push(this.state.currentLetter);
-
+    let newUsedLetters = [...this.state.usedLetters, this.state.currentLetter];
+    let endGame = false;
+    let newErrorCount = this.state.errorCount;
     if(ocurrences > 0) {
       let newGuessedChars = ocurrences + this.state.guessedChars;
-      this.setState(
-        {
-          endGame : (newGuessedChars === this.state.guessWord.length),
-          guessedChars : newGuessedChars,
-          usedLetters : newUsedLetters,
-          currentLetter: ""
-      }
-      );
+      endGame = newGuessedChars === this.state.guessWord.length;
     } else {
-      let newErrorCount = this.state.errorCount +1;
-      let newUsedLetters = Object.assign([], this.state.usedLetters);
-      newUsedLetters.push(this.state.currentLetter);
-      this.setState(
-        {
-          usedLetters: newUsedLetters,
-          errorCount: newErrorCount,
-          currentLetter: ""
-        }
-      )
+      newErrorCount = this.state.errorCount +1;
     }
+    this.setState(
+     {
+        endGame: endGame,
+        usedLetters: newUsedLetters,
+        errorCount: newErrorCount,
+        currentLetter: ""
+      }
+    )
   }
 
   setInputText(s: string) {
@@ -101,13 +95,7 @@ export default class Game extends React.Component<GameProps, GameState> {
         {this.state.usedLetters.map((value, index) => {
           return <span>{value}, </span>
         })}
-      <table>
-        <tr>
-          <td>Errores</td><td>{this.state.errorCount}</td>
-          <td>Errores</td><td>{this.state.errorCount}</td>
-        </tr>
-      </table>
-    </>
+         </>
     );
   }
 }

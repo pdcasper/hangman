@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Game from './Game';
 import reportWebVitals from './reportWebVitals';
+import { WordService } from './services/WordService';
 
+let wordService = new WordService();
 ReactDOM.render(
   <React.StrictMode>
-    <Game />
+    <Game wordService={wordService}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
