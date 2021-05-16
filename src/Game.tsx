@@ -7,13 +7,13 @@ interface GameProps  {
 }
 
 interface GameState  {
-  guessWord: string;
-  maxErrors: number;
-  errorCount: number;
-  guessedChars: number;
-  endGame: boolean;
+  guessWord: string
+  maxErrors: number,
+  errorCount: number,
+  guessedChars: number,
   usedLetters: string[],
-  currentLetter: string
+  currentLetter: string,
+  gameStatus: number // 1-> continue, 2 -> loose, 3 -> win
 
 }
 
@@ -26,7 +26,7 @@ export default class Game extends React.Component<GameProps, GameState> {
         maxErrors: 10, 
         errorCount: 0, 
         guessedChars: 0, 
-        endGame: false,
+        gameStatus: 1,
         usedLetters: [],
         currentLetter: ''
       }
@@ -39,20 +39,23 @@ export default class Game extends React.Component<GameProps, GameState> {
 
     let ocurrences = this.state.guessWord.split(this.state.currentLetter).length - 1;
     let newUsedLetters = [...this.state.usedLetters, this.state.currentLetter];
-    let endGame = false;
+    let status = 1;
     let newErrorCount = this.state.errorCount;
+    let newGuessedChars  =this.state.guessedChars;
     if(ocurrences > 0) {
-      let newGuessedChars = ocurrences + this.state.guessedChars;
-      endGame = newGuessedChars === this.state.guessWord.length;
+      newGuessedChars += ocurrences;
+      status = newGuessedChars === this.state.guessWord.length ? 3 : 1;
     } else {
       newErrorCount = this.state.errorCount +1;
+      status = newErrorCount === 7 ? 2 : 1;
     }
     this.setState(
      {
-        endGame: endGame,
+        gameStatus: status,
         usedLetters: newUsedLetters,
         errorCount: newErrorCount,
-        currentLetter: ""
+        currentLetter: "",
+        guessedChars: newGuessedChars
       }
     )
   }
@@ -90,11 +93,20 @@ export default class Game extends React.Component<GameProps, GameState> {
         
       
         <input type="text" value={this.state.currentLetter} onChange={e => this.setInputText(e.target.value)}/>
-        <button onClick={() => this.play()}>Play</button>
-<div>Letras usadas</div>
-        {this.state.usedLetters.map((value, index) => {
-          return <span>{value}, </span>
-        })}
+        <button onClick={() => this.play()} disabled={this.state.gameStatus !== 1}>Play</button>
+        <div>Letras usadas</div>
+          {
+            this.state.usedLetters.map((value, index) => {
+            return <span>{value}, </span>
+          })}
+         <div>
+           {
+              this.state.gameStatus !== 1 ? (
+                this.state.gameStatus === 2 ?
+                <p>Fuck you</p> : <p>You won</p>
+              ):''
+            }
+         </div>
          </>
     );
   }
