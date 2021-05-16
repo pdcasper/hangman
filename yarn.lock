@@ -2240,6 +2240,11 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+an-array-of-spanish-words@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/an-array-of-spanish-words/-/an-array-of-spanish-words-2.0.0.tgz#2c89d2e32185470aca83bc0b67c52c2aae59955d"
+  integrity sha512-mzTXYjlzlT6RhQWeBpXgz0mtUkR1qNra6Zx68BRsMY5uejokblFW3d0asckbds5uacO/otrFPka2dWCr65gzmg==
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
