@@ -17,7 +17,7 @@ export function Picture(props: PictureProperties) {
     
     return(
         <React.Fragment>
-            <img src={images[props.errorCont]} style={{height: 800}}></img>
+            <img src={images[props.errorCont]} style={{height: 300}}></img>
         </React.Fragment>
     )
 }

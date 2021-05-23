@@ -83,29 +83,34 @@ export default class Game extends React.Component<GameProps, GameState> {
 
     return(
       <>
-        <Picture errorCont={this.state.errorCount}></Picture>
-        <div>
-          PALABRA: 
-         {this.getWordLetters().map((value, index) => {
-           return <span>{value} </span>
-        })}
-        </div>
+        <div style={{width: '50%', float: 'left'}}>
+        <input type="text" value={this.state.currentLetter} onChange={e => this.setInputText(e.target.value)} size={1}/>
+        <button onClick={() => this.play()} disabled={this.state.gameStatus !== 1}>Play</button>
+
+          <div>
+           {this.getWordLetters().map((value, index) => {
+              return <span>{value} </span>
+            })}
+          </div>
         
       
-        <input type="text" value={this.state.currentLetter} onChange={e => this.setInputText(e.target.value)}/>
-        <button onClick={() => this.play()} disabled={this.state.gameStatus !== 1}>Play</button>
-        <div>Letras usadas</div>
-          {
-            this.state.usedLetters.map((value, index) => {
-            return <span>{value}, </span>
-          })}
-         <div>
-           {
+          
+          <div>Letras usadas</div>
+            {
+              this.state.usedLetters.map((value, index) => {
+              return <span>{value}, </span>
+            })}
+          <div>
+             {
               this.state.gameStatus !== 1 ? (
                 this.state.gameStatus === 2 ?
                 <p>Fuck you</p> : <p>You won</p>
               ):''
             }
+         </div>
+         </div>
+         <div style={{width: '50%', float: 'left'}}>
+         <Picture errorCont={this.state.errorCount} ></Picture>
          </div>
          </>
     );
