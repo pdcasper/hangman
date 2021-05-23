@@ -1,6 +1,7 @@
 import React from "react";
 import { Picture}  from './components/HangmanPicture';
 import {WordService} from './services/WordService';
+import './style/Game.css';
 
 interface GameProps  {
   wordService: WordService;
@@ -82,7 +83,10 @@ export default class Game extends React.Component<GameProps, GameState> {
   render() {
 
     return(
-      <>
+      <div className="Game">
+        <div className="header">The Hangman</div>
+
+        <div className="GameBoard">
         <div style={{width: '50%', float: 'left'}}>
         <input type="text" value={this.state.currentLetter} onChange={e => this.setInputText(e.target.value)} size={1}/>
         <button onClick={() => this.play()} disabled={this.state.gameStatus !== 1}>Play</button>
@@ -112,7 +116,8 @@ export default class Game extends React.Component<GameProps, GameState> {
          <div style={{width: '50%', float: 'left'}}>
          <Picture errorCont={this.state.errorCount} ></Picture>
          </div>
-         </>
+         </div>
+         </div>
     );
   }
 }
