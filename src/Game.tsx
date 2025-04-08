@@ -14,7 +14,7 @@ interface GameState  {
   guessedChars: number,
   usedLetters: string[],
   currentLetter: string,
-  gameStatus: number // 1-> continue, 2 -> loose, 3 -> win, added
+  gameStatus: number // 1-> continue, 2 -> loose, 3 -> win, added comment to add reviewer
 
 }
 
